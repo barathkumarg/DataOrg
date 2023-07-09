@@ -25,3 +25,12 @@ DataOrg is lite online Data Base Management tool with basic operations
 * Table creation : User can create Table which will be mapped under user DataBase
 * Table - constraints: One primary key and dynamic range of Columns can be created
 * Table data can be deleted , updated and added
+
+
+#Screen shots
+![image](https://github.com/barathkumarg/DataOrg/assets/53963652/22a025a5-0914-4f95-b07a-23c7329e6ac0)
+
+![image](https://github.com/barathkumarg/DataOrg/assets/53963652/a46c1f21-facc-43bc-b643-4acb7ab93759)
+
+![image](https://github.com/barathkumarg/DataOrg/assets/53963652/98e322ba-2d7b-41e4-9323-7e30d1524612)
+
