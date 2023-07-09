@@ -10,7 +10,7 @@ import com.DataOrg.JDBCconn.MySQLConnectionManager;
 import com.DataOrg.logger.FileLogger;
 
 public class UserAuth {
-	FileLogger fileLogger = new FileLogger(); 
+
 	private String email;
 	private String password;
 
@@ -21,7 +21,8 @@ public class UserAuth {
 
 	public boolean checkuser(){
 		
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
         try (Connection connection = mysql.getconnection();
 	             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?")) {
@@ -30,7 +31,7 @@ public class UserAuth {
 	            statement.setString(2, password);
 
 	            try (ResultSet resultSet = statement.executeQuery()) {
-	            	fileLogger.logInfo("login user execution completed");
+	            	logger.logInfo("login user execution completed");
 	                return resultSet.next();
 	            }
 	        } catch (SQLException e) {
