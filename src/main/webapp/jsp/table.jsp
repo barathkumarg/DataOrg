@@ -124,7 +124,7 @@
 						
 						%>
                         <th>Action</th>
-                 
+                        <th>Action</th>
 
 					</tr>
 				</thead>
@@ -157,6 +157,51 @@
 						}
 						}
 						%>
+						
+						<!-- Update Action -->
+						<td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal<%= primaryKeyValue %>">Update</button>
+        </td>
+        
+        	<!-- Update Modal -->
+	  
+    <div class="modal fade" id="updateModal<%= primaryKeyValue %>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<%= primaryKeyValue %>" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel<%= primaryKeyValue %>">Update Values</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateForm<%= primaryKeyValue %>">
+                        <input type="hidden" id="tableName" name="tableName" value="${tableName}" />
+                        <input type="hidden" name="primarykey" value="<%= primaryKeyValue %>">
+                        <%
+                        for (String columnName : columnNames) {
+                            %>
+                            <div class="form-outline mb-4">
+							<input type="username" name="UpdatefieldValue" id="<%=columnName%>"
+								class="form-control"  required /> <label class="form-label"
+								for="loginName"><%=columnName%></label>
+						</div>
+                            
+                            
+                           
+                        <%
+                        }
+                        %>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end update modal -->
+        
+						<!--  End update -->
+						
 						<!-- Delete form -->
 						<td><form id="deletedata">
 						<input type="hidden"  id="tableName" name="tableName" value="${tableName}" /> 
@@ -184,54 +229,13 @@
 		</div>
 	</div>
 
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<form id="tableform">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Add Data</h5>
-						<button type="button" class="btn-close" data-mdb-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-					<div class="form-outline mb-4">
-							<input type="hidden"  id="tableName" name="tableName"
-								class="form-control" value="${tableName}" /> 
-						</div>
-                        
-                        <%
-						
-						if (!columnNames.isEmpty()) {
-							for (String columnName : columnNames) {
-						%>
-						
-						
-						<div class="form-outline mb-4">
-							<input type="username" name="fieldValue" id="<%=columnName%>"
-								class="form-control" required /> <label class="form-label"
-								for="loginName"><%=columnName%></label>
-						</div>
-						<%
-						}
-						}
-						%>
-						
+	
+	
+	
+	
 
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-mdb-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Save
-							changes</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-	<!-- Modal -->
+	
+	
 
 
 
@@ -314,6 +318,11 @@
 			});
 		});
 	</script>
+	
+	
+			<!--  Ajax to Update Action form -->
+	
+	
 	
 	
 	

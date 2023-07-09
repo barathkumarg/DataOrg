@@ -21,9 +21,8 @@ public class UserDataOperation {
 
 	// get the user name via email from the session
 	public static String getUsername(String email) {
-		FileLogger filelogger = new FileLogger();
-
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
 		try (Connection connection = mysql.getconnection();
 				PreparedStatement statement = connection
@@ -35,7 +34,7 @@ public class UserDataOperation {
 			try (ResultSet resultSet = statement.executeQuery()) {
 
 				if (resultSet.next()) {
-					filelogger.logInfo("Username fetch query executed");
+					logger.logInfo("Username fetch query executed");
 					return resultSet.getString("username");
 				}
 			}
@@ -52,7 +51,8 @@ public class UserDataOperation {
 
 		// fetch the user table meta in Array
 		ArrayList<UserTableMeta> tablemeta = new ArrayList<>();
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
 		try (Connection connection = mysql.getconnection();
 				PreparedStatement statement = connection.prepareStatement(
@@ -82,7 +82,8 @@ public class UserDataOperation {
 
 		List<Map<String, Object>> dataList = new ArrayList<>();
 
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
 		try (Connection connection = mysql.getconnection(); Statement statement = connection.createStatement()) {
 
@@ -126,7 +127,8 @@ public class UserDataOperation {
         List<String> columnNames = new ArrayList<>();
 
 
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+        FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
 		try (Connection connection = mysql.getconnection(); Statement statement = connection.createStatement()) {
 

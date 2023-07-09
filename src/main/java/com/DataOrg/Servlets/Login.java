@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		System.out.println("in post login");
+		logger.info("Inside the dopost of login");
 		//authorization of user and jsp redirection
 		UserAuth auth = new UserAuth(email,password);
 		

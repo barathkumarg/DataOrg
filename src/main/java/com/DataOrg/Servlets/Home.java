@@ -71,8 +71,7 @@ public class Home extends HttpServlet {
 		String primarykey = request.getParameter("primarykey");
 		String[] columnames = request.getParameterValues("columnnames");
 		
-		System.out.println(tablename + ' '+ primarykey);
-		
+		//get the list of columnnames
 		ArrayList<String> columnNameList = new ArrayList<>();
 		
 		columnNameList.add(primarykey);

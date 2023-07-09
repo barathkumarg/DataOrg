@@ -6,11 +6,13 @@ import java.sql.SQLException;
 
 import com.DataOrg.Bean.UserTableMeta;
 import com.DataOrg.JDBCconn.MySQLConnectionManager;
+import com.DataOrg.logger.FileLogger;
 
 public class InsertTableMeta {
 
 	public static boolean insertUserMeta(UserTableMeta bean) {
-MySQLConnectionManager mysql = new MySQLConnectionManager();
+		FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 		
 		try (Connection connection = mysql.getconnection();
 	             PreparedStatement statement = connection.prepareStatement("INSERT INTO UserTable (UserEmail,UserTableName, DbName) VALUES (?, ?, ?)")){
@@ -22,7 +24,7 @@ MySQLConnectionManager mysql = new MySQLConnectionManager();
 			
 			//execute the query to check user already exists
 			int rowsAffected = statement.executeUpdate();
-			System.out.println("insert operation completed");
+			logger.logInfo("insert operation completed");
             return rowsAffected > 0;
 			
 		}catch (SQLException e) {

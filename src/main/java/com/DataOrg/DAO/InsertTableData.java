@@ -7,15 +7,18 @@ import java.util.List;
 
 import com.DataOrg.Bean.UserTable;
 import com.DataOrg.JDBCconn.MySQLConnectionManager;
+import com.DataOrg.logger.FileLogger;
 
 public class InsertTableData {
 	
 	
 	public static boolean insertTable(UserTable bean) {
+		//Initiate logger
+		FileLogger logger = new FileLogger();
 		
 		DbCheck(bean.getDbName());
 		
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
 		//insert the table for the desired database
 		try (Connection connection = mysql.getEmptyconnection();
@@ -39,14 +42,14 @@ public class InsertTableData {
                 sql.append(bean.getColumnNames().get(i)).append(" VARCHAR(200)");
             }
             sql.append(")");
-            System.out.println(sql);
+
             
             // Execute the CREATE TABLE statement
             statement.executeUpdate(sql.toString());
 			
 			
 		} catch (SQLException e) {
-            System.out.println("An error occurred while checking if the database exists: " + e.getMessage());
+            logger.logInfo("An error occurred while checking if the database exists: " + e.getMessage());
             return false;
         }
 
@@ -57,7 +60,9 @@ public class InsertTableData {
 	//method checks for the database and if not exists it creats a new one
 	public static void DbCheck(String DbName) 
 	{
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		
+		FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 		
 		try (Connection connection = mysql.getEmptyconnection();
 	             Statement statement = connection.createStatement();
@@ -75,7 +80,7 @@ public class InsertTableData {
 	            statement.executeUpdate(createDbQuery);
 
 	        } catch (SQLException e) {
-	            System.out.println("An error occurred while checking if the database exists: " + e.getMessage());
+	            logger.logInfo("An error occurred while checking if the database exists: " + e.getMessage());
 	        }
 
 	        return;
@@ -89,8 +94,9 @@ public class InsertTableData {
 public static boolean insertData(String DbName,String tableName,List<String>columnNames, List<String> dynamicDataList) {
 		
 
-		
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		//logger initiate
+	    FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
 		//insert the table for the desired database
 		try (Connection connection = mysql.getEmptyconnection();
@@ -143,7 +149,7 @@ public static boolean insertData(String DbName,String tableName,List<String>colu
 			
 			
 		} catch (SQLException e) {
-            System.out.println("An error occurred while checking if the database exists: " + e.getMessage());
+            logger.logInfo("An error occurred while checking if the database exists: " + e.getMessage());
             return false;
         }
 

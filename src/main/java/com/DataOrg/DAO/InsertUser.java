@@ -19,7 +19,7 @@ public class InsertUser {
 			return false; //user exists unable to insert again 
 		
 		//user insert login
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 		
 		try (Connection connection = mysql.getconnection();
 	             PreparedStatement statement = connection.prepareStatement("INSERT INTO users (username,email, password) VALUES (?, ?, ?)")){
@@ -42,9 +42,10 @@ public class InsertUser {
 	
 	
 	public static boolean checkuser(User userbean) {
-		FileLogger fileLogger = new FileLogger(); 
 		
-		MySQLConnectionManager mysql = new MySQLConnectionManager();
+		
+		FileLogger logger = new FileLogger();
+		MySQLConnectionManager mysql = MySQLConnectionManager.getInstance();
 
 		try (Connection connection = mysql.getconnection();
 	             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users WHERE email = ?")){
@@ -53,7 +54,7 @@ public class InsertUser {
 			
 			//execute the query to check user already exists
 			try (ResultSet resultSet = statement.executeQuery()) {
-           	fileLogger.logInfo("user check for insertion completed");
+           	logger.logInfo("user check for insertion completed");
                return resultSet.next(); // true if a matching user is found
            }
 	
